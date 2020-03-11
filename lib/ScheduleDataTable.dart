@@ -27,7 +27,7 @@ class _ScheduleDataTableState extends State<ScheduleDataTable> {
       scrollDirection: Axis.vertical,
       child: DataTable(
         showCheckboxColumn: false,
-        sortColumnIndex: 0,
+        // sortColumnIndex: 1,
         columns: [
           DataColumn(
             label: Text("BEATS"),
