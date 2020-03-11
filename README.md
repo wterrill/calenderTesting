@@ -1,4 +1,4 @@
-# gcfd
+# Flutter calendar widget
 
 A new Flutter project.
 
