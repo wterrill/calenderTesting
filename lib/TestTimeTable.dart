@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'provider/CalendarData.dart';
 
 class TestTimeTable extends StatelessWidget {
   TestTimeTable({Key key}) : super(key: key);
@@ -22,12 +25,16 @@ class TestTimeTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("rebuild: ");
+    String providerTesting =
+        Provider.of<CalendarData>(context, listen: true).testing;
+    print("providerTesting: " + providerTesting);
     return Container(
       child: DataTable(
         showCheckboxColumn: false,
         columns: [
           DataColumn(
-            label: Text(" "),
+            label: Text(providerTesting),
             numeric: false,
           ),
         ],

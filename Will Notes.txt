@@ -1,0 +1,9 @@
+initial firebase setup:
+firebase login
+firebase init (select hosting and single page app)
+
+
+deployment to firebase:
+flutter build web
+flutter deploy
+

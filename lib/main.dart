@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:gcfd/TestTimeTable.dart';
 
-import 'ScheduleDataTable.dart';
+import 'AppointmentBox.dart';
+import 'package:provider/provider.dart';
 import 'TestDayData.dart';
+import 'provider/CalendarData.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => CalendarData()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -32,9 +41,42 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _drawerKey,
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('Drawer Header'),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+            ),
+            ListTile(
+              title: Text('Item 1'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text(Provider.of<CalendarData>(context).testing),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: Text(widget.title),
       ),
@@ -43,121 +85,45 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           Row(
             children: [
-              // Stack(
-              //     fit: StackFit.loose,
-              //     alignment: Alignment.center,
-              //     children: [
-              //       ScheduleDataTable(selectRowCallback: print),
-              //       Positioned(
-              //         top: 100,
-              //         child: Container(
-              //           decoration: new BoxDecoration(
-              //             color: Colors.purple,
-              //             // shape: Shapes.
-              //             borderRadius:
-              //                 new BorderRadius.all(new Radius.circular(15.0)),
-              //           ),
-              //           width: 290,
-              //           height: 100,
-              //           // color: Colors.green,
-              //         ),
-              //       ),
-              //       Positioned(
-              //         top: 300,
-              //         child: Container(
-              //           decoration: new BoxDecoration(
-              //             color: Colors.purple,
-              //             // shape: Shapes.
-              //             borderRadius:
-              //                 new BorderRadius.all(new Radius.circular(15.0)),
-              //           ),
-              //           width: 290,
-              //           height: 200,
-              //           // color: Colors.green,
-              //         ),
-              //       )
-              //     ]),
               TestTimeTable(),
               Stack(
-                  fit: StackFit.loose,
-                  alignment: Alignment.center,
-                  children: [
-                    TestDayData(day: "   Monday\n 03-09-2020"),
-                    Positioned(
-                      top: 100,
-                      child: Container(
-                        child: Center(child: Text("Place #4")),
-                        decoration: new BoxDecoration(
-                          color: Colors.purple,
-                          // shape: Shapes.
-                          borderRadius:
-                              new BorderRadius.all(new Radius.circular(15.0)),
-                        ),
-                        width: 130,
-                        height: 100,
-                        // color: Colors.green,
-                      ),
-                    ),
-                    Positioned(
-                      top: 300,
-                      child: Container(
-                        child: Center(child: Text("Place #3")),
-                        decoration: new BoxDecoration(
-                          color: Colors.purple,
-                          // shape: Shapes.
-                          borderRadius:
-                              new BorderRadius.all(new Radius.circular(15.0)),
-                        ),
-                        width: 130,
-                        height: 200,
-                        // color: Colors.green,
-                      ),
-                    )
-                  ]),
+                fit: StackFit.loose,
+                alignment: Alignment.center,
+                children: [
+                  TestDayData(day: "Monday\n03-09-2020"),
+                  AppointmentBox(
+                      topVal: 100.0,
+                      color: Colors.purple,
+                      height: 100.0,
+                      text: "Place #1"),
+                  AppointmentBox(
+                      topVal: 300.0,
+                      color: Colors.purple,
+                      height: 200.0,
+                      text: "Place #2"),
+                ],
+              ),
               Stack(
                   fit: StackFit.loose,
                   alignment: Alignment.center,
                   children: [
-                    TestDayData(day: "   Tuesday\n 03-10-2020"),
-                    Positioned(
-                      top: 150,
-                      child: Container(
-                        child: Center(child: Text("Place #1")),
-                        decoration: new BoxDecoration(
-                          color: Colors.green,
-                          // shape: Shapes.
-                          borderRadius:
-                              new BorderRadius.all(new Radius.circular(15.0)),
-                        ),
-                        width: 130,
-                        height: 100,
-                        // color: Colors.green,
-                      ),
-                    ),
-                    Positioned(
-                      top: 300,
-                      child: Container(
-                        child: Center(child: Text("Place #2")),
-                        decoration: new BoxDecoration(
-                          color: Colors.orange,
-                          // shape: Shapes.
-                          borderRadius:
-                              new BorderRadius.all(new Radius.circular(15.0)),
-                        ),
-                        width: 130,
-                        height: 200,
-                        // color: Colors.green,
-                      ),
-                    )
+                    TestDayData(day: "Tuesday\n03-10-2020"),
+                    AppointmentBox(
+                        topVal: 150.0,
+                        color: Colors.green,
+                        height: 100.0,
+                        text: "Place #3"),
+                    AppointmentBox(
+                        topVal: 300.0,
+                        color: Colors.orange,
+                        height: 200.0,
+                        text: "Place #4"),
                   ]),
-              TestDayData(day: "   Tuesday\n 03-10-2020"),
-              TestDayData(day: " Wednesday\n 03-11-2020"),
-              TestDayData(day: "  Thursday\n 03-12-2020"),
-              TestDayData(day: "    Friday\n 03-13-2020"),
-              TestDayData(day: "  Saturday\n 03-14-2020"),
-              TestDayData(day: "    Sunday\n 03-15-2020"),
-              // Stack(children: [ScheduleDataTable(selectRowCallback: print)]),
-              // Stack(children: [ScheduleDataTable(selectRowCallback: print)]),
+              TestDayData(day: "Wednesday\n03-11-2020"),
+              TestDayData(day: "Thursday\n03-12-2020"),
+              TestDayData(day: "Friday\n03-13-2020"),
+              TestDayData(day: "Saturday\n03-14-2020"),
+              TestDayData(day: "Sunday\n03-15-2020"),
             ],
           )
         ],
