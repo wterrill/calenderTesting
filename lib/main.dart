@@ -70,6 +70,18 @@ class _MyHomePageState extends State<MyHomePage> {
           height: (4 * 24.0),
           text: "Place #4"),
     ];
+    List<Widget> appointments3 = [
+      AppointmentBox(
+          topVal: (55 + 10 * 24.0),
+          color: Colors.green,
+          height: (3 * 24.0),
+          text: "Place #5"),
+      AppointmentBox(
+          topVal: (55 + 10 * 24.0),
+          color: Colors.orange,
+          height: (4 * 24.0),
+          text: "Place #6"),
+    ];
     String clickedValue =
         Provider.of<CalendarData>(context, listen: true).testing;
     return Scaffold(
@@ -119,11 +131,35 @@ class _MyHomePageState extends State<MyHomePage> {
                   title: "Tuesday\n03-10-2020",
                   appointments: appointments2,
                 ),
-                TestDayData(day: "Wednesday\n03-11-2020"),
-                TestDayData(day: "Thursday\n03-12-2020"),
-                TestDayData(day: "Friday\n03-13-2020"),
-                TestDayData(day: "Saturday\n03-14-2020"),
-                TestDayData(day: "Sunday\n03-15-2020"),
+                DayScheduleStack(
+                  title: "Wednesday\n03-11-2020",
+                  appointments: [],
+                ),
+                DayScheduleStack(
+                  title: "Wednesday\n03-11-2020",
+                  appointments: appointments3,
+                ),
+                DayScheduleStack(
+                  title: "Thursday\n03-12-2020",
+                  appointments: appointments1,
+                ),
+                DayScheduleStack(
+                  title: "Friday\n03-13-2020",
+                  appointments: [],
+                ),
+                DayScheduleStack(
+                  title: "Saturday\n03-14-2020",
+                  appointments: appointments3,
+                ),
+                DayScheduleStack(
+                  title: "Sunday\n03-15-2020",
+                  appointments: [],
+                ),
+                // TestDayData(day: "Wednesday\n03-11-2020"),
+                // TestDayData(day: "Thursday\n03-12-2020"),
+                // TestDayData(day: "Friday\n03-13-2020"),
+                // TestDayData(day: "Saturday\n03-14-2020"),
+                // TestDayData(day: "Sunday\n03-15-2020"),
               ],
             ),
           ),
