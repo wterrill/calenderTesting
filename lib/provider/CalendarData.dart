@@ -23,12 +23,12 @@ class CalendarData with ChangeNotifier {
     testing = "testing initialized in provider";
   }
 
-  String setText(String text) {
-    print("incoming text = " + text);
+  void setText(String text) {
+    print("provider incoming text = " + text);
     testing = text;
-    print("testing =  " + testing);
-    this.testing = text;
-    print("this.testing =  " + this.testing);
-    return "return from setText in provider";
+    // print("provider testing =  " + testing);
+    // this.testing = text;
+    // print("provider this.testing =  " + this.testing);
+    notifyListeners();
   }
 }

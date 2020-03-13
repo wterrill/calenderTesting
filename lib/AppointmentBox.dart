@@ -50,15 +50,12 @@ class _AppointmentBoxState extends State<AppointmentBox>
     return Positioned(
       child: GestureDetector(
         onLongPressMoveUpdate: (details) {
-          setState(() {
-            print("flexTopInit: " + flexTopInit.toString());
-            print("details.localOffsetFromOrigin.dy: " +
-                details.localOffsetFromOrigin.dy.toString());
-            print("details.localPosition.dy: " +
-                details.localPosition.dy.toString());
-            flexTop = details.localOffsetFromOrigin.dy + flexTopInit;
-            print("flexTop final: " + flexTop.toString());
-          });
+          var result = details.localOffsetFromOrigin.dy ~/ 20;
+          if (result != 0) {
+            setState(() {
+              flexTop = result * 20 + flexTopInit;
+            });
+          }
         },
         onLongPressEnd: (details) {
           setState(() {
@@ -67,9 +64,8 @@ class _AppointmentBoxState extends State<AppointmentBox>
         },
         onTap: () {
           print("widget.text = " + widget.text);
-          var textSetTo = Provider.of<CalendarData>(context, listen: false)
+          Provider.of<CalendarData>(context, listen: false)
               .setText(widget.text);
-          print(textSetTo);
 
           Scaffold.of(context).openDrawer();
         },

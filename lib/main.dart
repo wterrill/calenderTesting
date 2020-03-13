@@ -68,10 +68,14 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-              title: Text(Provider.of<CalendarData>(context).testing),
+              title: Text(
+                  Provider.of<CalendarData>(context, listen: true).testing),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                Provider.of<CalendarData>(context, listen: false)
+                    .setText("maybe?");
+                print("******");
+                print(Provider.of<CalendarData>(context, listen: true).testing);
+                print("******");
               },
             ),
           ],
@@ -82,51 +86,58 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ListView(
         shrinkWrap: true,
-        children: <Widget>[
-          Row(
-            children: [
-              TestTimeTable(),
-              Stack(
-                fit: StackFit.loose,
-                alignment: Alignment.center,
-                children: [
-                  TestDayData(day: "Monday\n03-09-2020"),
-                  AppointmentBox(
-                      topVal: 100.0,
-                      color: Colors.purple,
-                      height: 100.0,
-                      text: "Place #1"),
-                  AppointmentBox(
-                      topVal: 300.0,
-                      color: Colors.purple,
-                      height: 200.0,
-                      text: "Place #2"),
-                ],
-              ),
-              Stack(
+        // children: <Widget>[
+        //   Row(
+        children: [
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                Container(width: 230, child: TestTimeTable()),
+                Stack(
                   fit: StackFit.loose,
                   alignment: Alignment.center,
                   children: [
-                    TestDayData(day: "Tuesday\n03-10-2020"),
+                    TestDayData(day: "Monday\n03-09-2020"),
                     AppointmentBox(
-                        topVal: 150.0,
-                        color: Colors.green,
+                        topVal: 100.0,
+                        color: Colors.purple,
                         height: 100.0,
-                        text: "Place #3"),
+                        text: "Place #1"),
                     AppointmentBox(
                         topVal: 300.0,
-                        color: Colors.orange,
+                        color: Colors.purple,
                         height: 200.0,
-                        text: "Place #4"),
-                  ]),
-              TestDayData(day: "Wednesday\n03-11-2020"),
-              TestDayData(day: "Thursday\n03-12-2020"),
-              TestDayData(day: "Friday\n03-13-2020"),
-              TestDayData(day: "Saturday\n03-14-2020"),
-              TestDayData(day: "Sunday\n03-15-2020"),
-            ],
-          )
+                        text: "Place #2"),
+                  ],
+                ),
+                Stack(
+                    fit: StackFit.loose,
+                    alignment: Alignment.center,
+                    children: [
+                      TestDayData(day: "Tuesday\n03-10-2020"),
+                      AppointmentBox(
+                          topVal: 150.0,
+                          color: Colors.green,
+                          height: 100.0,
+                          text: "Place #3"),
+                      AppointmentBox(
+                          topVal: 300.0,
+                          color: Colors.orange,
+                          height: 200.0,
+                          text: "Place #4"),
+                    ]),
+                TestDayData(day: "Wednesday\n03-11-2020"),
+                TestDayData(day: "Thursday\n03-12-2020"),
+                TestDayData(day: "Friday\n03-13-2020"),
+                TestDayData(day: "Saturday\n03-14-2020"),
+                TestDayData(day: "Sunday\n03-15-2020"),
+              ],
+            ),
+          ),
         ],
+        //   )
+        // ],
       ),
     );
   }

@@ -25,71 +25,69 @@ class TestDayData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: DataTable(
-        showCheckboxColumn: false,
-        columns: [
-          DataColumn(
-            label: Center(child: Text(day, textAlign: TextAlign.center)),
-            numeric: false,
-          ),
-        ],
-        rows: timesList
-            .map(
-              (times) => DataRow(cells: [
-                DataCell(
-                  Text(""),
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          content: Form(
-                            // key: _formKey,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Text(day.toString() + " - " + times.toString()),
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: TextFormField(
-                                    decoration: const InputDecoration(
-                                      icon: Icon(Icons.person),
-                                      hintText: 'What do people call you?',
-                                      labelText: 'Name *',
-                                    ),
+    return DataTable(
+      showCheckboxColumn: false,
+      columns: [
+        DataColumn(
+          label: Center(child: Text(day, textAlign: TextAlign.center)),
+          numeric: false,
+        ),
+      ],
+      rows: timesList
+          .map(
+            (times) => DataRow(cells: [
+              DataCell(
+                Text(""),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        content: Form(
+                          // key: _formKey,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Text(day.toString() + " - " + times.toString()),
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                  decoration: const InputDecoration(
+                                    icon: Icon(Icons.person),
+                                    hintText: 'What do people call you?',
+                                    labelText: 'Name *',
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: TextFormField(),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: TextFormField(),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: RaisedButton(
+                                  child: Text("Create appointment"),
+                                  onPressed: () {
+                                    // if (_formKey.currentState.validate()) {
+                                    //   _formKey.currentState.save();
+                                    // }
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop();
+                                  },
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: RaisedButton(
-                                    child: Text("Create appointment"),
-                                    onPressed: () {
-                                      // if (_formKey.currentState.validate()) {
-                                      //   _formKey.currentState.save();
-                                      // }
-                                      Navigator.of(context, rootNavigator: true)
-                                          .pop();
-                                    },
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                        );
-                      },
-                    );
-                  },
-                  //},
-                ),
-              ]),
-            )
-            .toList(),
-      ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                //},
+              ),
+            ]),
+          )
+          .toList(),
     );
   }
 }
