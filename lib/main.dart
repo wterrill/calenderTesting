@@ -44,14 +44,12 @@ class _MyHomePageState extends State<MyHomePage> {
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
+    String clickedValue =
+        Provider.of<CalendarData>(context, listen: true).testing;
     return Scaffold(
       key: _drawerKey,
       drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
         child: ListView(
-          // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
@@ -62,20 +60,13 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               title: Text('Item 1'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
+              onTap: () {},
             ),
             ListTile(
-              title: Text(
-                  Provider.of<CalendarData>(context, listen: true).testing),
+              title: Text(clickedValue),
               onTap: () {
-                Provider.of<CalendarData>(context, listen: false)
-                    .setText("maybe?");
-                print("******");
-                print(Provider.of<CalendarData>(context, listen: true).testing);
-                print("******");
+                Provider.of<CalendarData>(context, listen: false).setText(
+                    "Clicked inside drawer that's being displayed for $clickedValue");
               },
             ),
           ],
@@ -94,23 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Row(
               children: [
                 Container(width: 230, child: TestTimeTable()),
-                Stack(
-                  fit: StackFit.loose,
-                  alignment: Alignment.center,
-                  children: [
-                    TestDayData(day: "Monday\n03-09-2020"),
-                    AppointmentBox(
-                        topVal: 100.0,
-                        color: Colors.purple,
-                        height: 100.0,
-                        text: "Place #1"),
-                    AppointmentBox(
-                        topVal: 300.0,
-                        color: Colors.purple,
-                        height: 200.0,
-                        text: "Place #2"),
-                  ],
-                ),
+                DayScheduleStack(),
                 Stack(
                     fit: StackFit.loose,
                     alignment: Alignment.center,
@@ -139,6 +114,43 @@ class _MyHomePageState extends State<MyHomePage> {
         //   )
         // ],
       ),
+    );
+  }
+}
+
+class DayScheduleStack extends StatefulWidget {
+  const DayScheduleStack({
+    Key key,
+  }) : super(key: key);
+
+  DayScheduleStackState createState() => DayScheduleStackState();
+}
+
+class DayScheduleStackState extends State<DayScheduleStack> {
+  var title = "Monday\n03-09-2020";
+  List<Widget> appointments = [
+    AppointmentBox(
+        topVal: (2 * 24 + 55).toDouble(),
+        color: Colors.purple,
+        height: (3 * 24.0),
+        text: "Place #1"),
+    AppointmentBox(
+        topVal: (8 * 24 + 55).toDouble(),
+        color: Colors.purple,
+        height: (4 * 24.0),
+        text: "Place #2"),
+  ];
+
+  appointmentUnpack(int val) {
+    return appointments[val];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.loose,
+      alignment: Alignment.center,
+      children: [TestDayData(day: title), ...appointments],
     );
   }
 }

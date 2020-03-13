@@ -23,6 +23,7 @@ class _AppointmentBoxState extends State<AppointmentBox>
   Animation<Alignment> _animation;
   double flexTop;
   double flexTopInit;
+  int lastResult = -1;
 
   void initState() {
     super.initState();
@@ -32,9 +33,6 @@ class _AppointmentBoxState extends State<AppointmentBox>
     print("init flexTop = " + flexTop.toString());
 
     _controller.addListener(() {
-      // setState(() {
-      //   _dragAlignment = _animation.value;
-      // });
       print(_animation.value);
     });
   }
@@ -50,12 +48,16 @@ class _AppointmentBoxState extends State<AppointmentBox>
     return Positioned(
       child: GestureDetector(
         onLongPressMoveUpdate: (details) {
-          var result = details.localOffsetFromOrigin.dy ~/ 20;
-          if (result != 0) {
+          int stepper = 24;
+          int result = details.localOffsetFromOrigin.dy ~/ stepper;
+          if (result != lastResult) {
+            print("stepper=$result");
             setState(() {
-              flexTop = result * 20 + flexTopInit;
+              flexTop = result * stepper + flexTopInit;
+              print(flexTop);
             });
           }
+          lastResult = result;
         },
         onLongPressEnd: (details) {
           setState(() {

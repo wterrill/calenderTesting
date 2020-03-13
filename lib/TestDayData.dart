@@ -25,6 +25,8 @@ class TestDayData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(
+        "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TestDayData rebuild: key: $key !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     return DataTable(
       showCheckboxColumn: false,
       columns: [

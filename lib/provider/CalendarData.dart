@@ -20,15 +20,11 @@ class CalendarData with ChangeNotifier {
 
   initializeApp() {
     print("initialized CalendarData Provider");
-    testing = "testing initialized in provider";
+    testing = "";
   }
 
   void setText(String text) {
-    print("provider incoming text = " + text);
     testing = text;
-    // print("provider testing =  " + testing);
-    // this.testing = text;
-    // print("provider this.testing =  " + this.testing);
     notifyListeners();
   }
 }

@@ -26,7 +26,7 @@ class TestTimeTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(
-        "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TestTimeTable rebuild!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TestTimeTable rebuild $key !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     String providerTesting =
         Provider.of<CalendarData>(context, listen: true).testing;
     print("providerTesting: " + providerTesting);
