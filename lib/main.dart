@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gcfd/TestTimeTable.dart';
 
@@ -44,6 +45,31 @@ class _MyHomePageState extends State<MyHomePage> {
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
+    var title1 = "Monday\n03-09-2020";
+    List<Widget> appointments1 = [
+      AppointmentBox(
+          topVal: (2 * 24 + 55).toDouble(),
+          color: Colors.purple,
+          height: (3 * 24.0),
+          text: "Place #1"),
+      AppointmentBox(
+          topVal: (8 * 24 + 55).toDouble(),
+          color: Colors.purple,
+          height: (4 * 24.0),
+          text: "Place #2"),
+    ];
+    List<Widget> appointments2 = [
+      AppointmentBox(
+          topVal: (55 + 4 * 24.0),
+          color: Colors.green,
+          height: (2 * 24.0),
+          text: "Place #3"),
+      AppointmentBox(
+          topVal: (55 + 10 * 24.0),
+          color: Colors.orange,
+          height: (4 * 24.0),
+          text: "Place #4"),
+    ];
     String clickedValue =
         Provider.of<CalendarData>(context, listen: true).testing;
     return Scaffold(
@@ -85,23 +111,14 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Row(
               children: [
                 Container(width: 230, child: TestTimeTable()),
-                DayScheduleStack(),
-                Stack(
-                    fit: StackFit.loose,
-                    alignment: Alignment.center,
-                    children: [
-                      TestDayData(day: "Tuesday\n03-10-2020"),
-                      AppointmentBox(
-                          topVal: 150.0,
-                          color: Colors.green,
-                          height: 100.0,
-                          text: "Place #3"),
-                      AppointmentBox(
-                          topVal: 300.0,
-                          color: Colors.orange,
-                          height: 200.0,
-                          text: "Place #4"),
-                    ]),
+                DayScheduleStack(
+                  title: title1,
+                  appointments: appointments1,
+                ),
+                DayScheduleStack(
+                  title: "Tuesday\n03-10-2020",
+                  appointments: appointments2,
+                ),
                 TestDayData(day: "Wednesday\n03-11-2020"),
                 TestDayData(day: "Thursday\n03-12-2020"),
                 TestDayData(day: "Friday\n03-13-2020"),
@@ -119,38 +136,26 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class DayScheduleStack extends StatefulWidget {
-  const DayScheduleStack({
+  final String title;
+  final List<Widget> appointments;
+  DayScheduleStack({
     Key key,
+    @required this.title,
+    @required this.appointments,
   }) : super(key: key);
 
   DayScheduleStackState createState() => DayScheduleStackState();
 }
 
 class DayScheduleStackState extends State<DayScheduleStack> {
-  var title = "Monday\n03-09-2020";
-  List<Widget> appointments = [
-    AppointmentBox(
-        topVal: (2 * 24 + 55).toDouble(),
-        color: Colors.purple,
-        height: (3 * 24.0),
-        text: "Place #1"),
-    AppointmentBox(
-        topVal: (8 * 24 + 55).toDouble(),
-        color: Colors.purple,
-        height: (4 * 24.0),
-        text: "Place #2"),
-  ];
-
-  appointmentUnpack(int val) {
-    return appointments[val];
-  }
-
+  List<Widget> appointments;
+  DayScheduleStackState({this.appointments});
   @override
   Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.loose,
       alignment: Alignment.center,
-      children: [TestDayData(day: title), ...appointments],
+      children: [TestDayData(day: widget.title), ...widget.appointments],
     );
   }
 }
