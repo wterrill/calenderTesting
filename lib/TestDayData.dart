@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'provider/CalendarData.dart';
 
 class TestDayData extends StatelessWidget {
   final List<String> timesList = [
@@ -28,7 +31,7 @@ class TestDayData extends StatelessWidget {
     print(
         "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TestDayData rebuild: key: $key !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     return DataTable(
-      showCheckboxColumn: false,
+      // showCheckboxColumn: false,
       columns: [
         DataColumn(
           label: Center(child: Text(day, textAlign: TextAlign.center)),
@@ -68,11 +71,11 @@ class TestDayData extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: RaisedButton(
-                                  child: Text("Create appointment"),
+                                  child: Text('Create appointment'),
                                   onPressed: () {
-                                    // if (_formKey.currentState.validate()) {
-                                    //   _formKey.currentState.save();
-                                    // }
+                                    Provider.of<CalendarData>(context,
+                                            listen: false)
+                                        .makeAppointmentCheat(index: 0);
                                     Navigator.of(context, rootNavigator: true)
                                         .pop();
                                   },

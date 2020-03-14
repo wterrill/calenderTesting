@@ -32,7 +32,7 @@ class TestTimeTable extends StatelessWidget {
     print("providerTesting: " + providerTesting);
     return Container(
       child: DataTable(
-        showCheckboxColumn: false,
+        // showCheckboxColumn: false,
         columns: [
           DataColumn(
             label: Text(providerTesting),

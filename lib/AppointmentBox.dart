@@ -6,10 +6,10 @@ import 'provider/CalendarData.dart';
 class AppointmentBox extends StatefulWidget {
   final double topVal;
   final Color color;
-  final double height;
+  final double duration;
   final String text;
 
-  AppointmentBox({Key key, this.topVal, this.color, this.height, this.text})
+  AppointmentBox({Key key, this.topVal, this.color, this.duration, this.text})
       : super(key: key);
 
   @override
@@ -112,11 +112,11 @@ class _AppointmentBoxState extends State<AppointmentBox>
         child: Container(
           child: Center(child: Text(widget.text)),
           decoration: new BoxDecoration(
-            color: widget.color,
-            borderRadius: new BorderRadius.all(new Radius.circular(15.0)),
-          ),
-          width: 120,
-          height: widget.height,
+              color: widget.color,
+              borderRadius: new BorderRadius.all(new Radius.circular(15.0)),
+              border: Border.all(color: Colors.blueAccent)),
+          width: 100,
+          height: widget.duration,
         ),
       ),
       top: flexTop,

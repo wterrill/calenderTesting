@@ -26,7 +26,7 @@ class _ScheduleDataTableState extends State<ScheduleDataTable> {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: DataTable(
-        showCheckboxColumn: false,
+        // showCheckboxColumn: false,
         // sortColumnIndex: 1,
         columns: [
           DataColumn(
