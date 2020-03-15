@@ -4,6 +4,7 @@ import 'package:gcfd/TestTimeTable.dart';
 
 import 'AppointmentBox.dart';
 import 'package:provider/provider.dart';
+import 'ColorDef.dart';
 import 'DayScheduleStack.dart';
 import 'TestDayData.dart';
 import 'provider/CalendarData.dart';
@@ -57,12 +58,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     createAppointmentsFromArray(var data) {
       print("Entered createAppointmentsFromArray");
-      var colors = {
-        'purple': Colors.purple,
-        'yellow': Colors.yellow,
-        'green': Colors.green,
-        'orange': Colors.orange
-      };
+      // var colors = {
+      //   'purple': Colors.purple,
+      //   'yellow': Colors.yellow,
+      //   'green': Colors.green,
+      //   'orange': Colors.orange
+      // };
 
       // var appoint = data.appoinments.map((appt)=>{
 
@@ -79,15 +80,15 @@ class _MyHomePageState extends State<MyHomePage> {
             AppointmentBox(
               key: UniqueKey(),
               topVal: (appt['start'] * 24 + 55).toDouble(),
-              color: colors[appt['color']],
+              color: ColorDef.colors[appt['color']],
               duration: (appt['duration'] * 24.0),
               text: appt['text'],
             ),
           );
         });
         print(appoint);
-        currentPage
-            .add(DayScheduleStack(title: day['title'], appointments: appoint));
+        currentPage.add(DayScheduleStack(
+            title: day['DOW'] + "\n" + day['date'], appointments: appoint));
       });
       return currentPage;
     }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'DropDown.dart';
 import 'provider/CalendarData.dart';
 
 class TestDayData extends StatelessWidget {
@@ -44,6 +45,7 @@ class TestDayData extends StatelessWidget {
               DataCell(
                 Text(""),
                 onTap: () {
+                  String selectedValue;
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -59,11 +61,15 @@ class TestDayData extends StatelessWidget {
                                 child: TextFormField(
                                   decoration: const InputDecoration(
                                     icon: Icon(Icons.person),
-                                    hintText: 'What do people call you?',
-                                    labelText: 'Name *',
+                                    hintText: 'This is just filler text?',
+                                    labelText: 'testing *',
                                   ),
                                 ),
                               ),
+                              DropDown(onSelected: (String val) {
+                                print('newValue: $val');
+                                selectedValue = val;
+                              }),
                               Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: TextFormField(),
@@ -75,7 +81,12 @@ class TestDayData extends StatelessWidget {
                                   onPressed: () {
                                     Provider.of<CalendarData>(context,
                                             listen: false)
-                                        .makeAppointmentCheat(index: 0);
+                                        .makeAppointmentCheat(
+                                            date: day.split("\n")[1],
+                                            time: times,
+                                            duration: 4,
+                                            name: "Place #203",
+                                            color: selectedValue.toLowerCase());
                                     Navigator.of(context, rootNavigator: true)
                                         .pop();
                                   },
