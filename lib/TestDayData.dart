@@ -86,7 +86,9 @@ class TestDayData extends StatelessWidget {
                                             time: times,
                                             duration: 4,
                                             name: "Place #203",
-                                            color: selectedValue.toLowerCase());
+                                            color: (selectedValue != null)
+                                                ? selectedValue.toLowerCase()
+                                                : "purple");
                                     Navigator.of(context, rootNavigator: true)
                                         .pop();
                                   },

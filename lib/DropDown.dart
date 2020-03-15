@@ -26,12 +26,12 @@ class _DropDownState extends State<DropDown> {
       ),
       onChanged: (String newValue) {
         widget.onSelected(newValue);
-        setState(() {
-          dropdownValue = newValue;
-        });
+        // setState(() {
+        //   dropdownValue = newValue;
+        // });
       },
       items: <String>['Purple', 'Yellow', 'Green', 'Orange']
-          .map<DropdownMenuItem<String>>((String value) {
+          .map<DropdownMenuItem<String>>((value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value,
