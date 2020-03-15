@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gcfd/CreateForm.dart';
 import 'package:provider/provider.dart';
 
 import 'DropDown.dart';
@@ -50,54 +51,7 @@ class TestDayData extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        content: Form(
-                          // key: _formKey,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Text(day.toString() + " - " + times.toString()),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: TextFormField(
-                                  decoration: const InputDecoration(
-                                    icon: Icon(Icons.person),
-                                    hintText: 'This is just filler text?',
-                                    labelText: 'testing *',
-                                  ),
-                                ),
-                              ),
-                              DropDown(onSelected: (String val) {
-                                print('newValue: $val');
-                                selectedValue = val;
-                              }),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: TextFormField(),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: RaisedButton(
-                                  child: Text('Create appointment'),
-                                  onPressed: () {
-                                    Provider.of<CalendarData>(context,
-                                            listen: false)
-                                        .makeAppointmentCheat(
-                                            date: day.split("\n")[1],
-                                            time: times,
-                                            duration: 4,
-                                            name: "Place #203",
-                                            color: (selectedValue != null)
-                                                ? selectedValue.toLowerCase()
-                                                : "purple");
-                                    Navigator.of(context, rootNavigator: true)
-                                        .pop();
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      );
+                          content: CreateForm(day: day, times: times));
                     },
                   );
                 },

@@ -131,18 +131,22 @@ class CalendarData with ChangeNotifier {
   // }
 
   void makeAppointmentCheat(
-      {String date, String time, int duration, String name, String color}) {
+      {String date, String time, String duration, String name, String color}) {
     print("day:$date, time:$time, duration:$duration");
     int index = getIndexFromDay(date);
     print(index);
     List appt = testArray[index]['appointments'];
     int startTime = convertTime(time);
     print(startTime);
+    print("duration: $duration");
+    int durationStep = convertDuration(duration);
+    print("durationStep: $durationStep");
+
     //appt.length - 1
     appt.insert(0, {
       'start': startTime,
       'color': color,
-      'duration': duration,
+      'duration': durationStep,
       'text': name,
     });
     testArray[index]['appointments'] = appt;
@@ -161,5 +165,9 @@ class CalendarData with ChangeNotifier {
     int startStep = ((int.parse(splitTime[0]) - 6) * 2);
     print(startStep);
     return startStep;
+  }
+
+  int convertDuration(String duration) {
+    return (double.parse(duration) * 2).round();
   }
 }

@@ -3,14 +3,26 @@ import 'ColorDef.dart';
 
 class DropDown extends StatefulWidget {
   final Function(String) onSelected;
-  DropDown({Key key, this.onSelected}) : super(key: key);
+  final List<String> selectionList;
+  final String initialSelection;
+  DropDown(
+      {Key key, this.onSelected, this.selectionList, this.initialSelection})
+      : super(key: key);
 
   @override
   _DropDownState createState() => _DropDownState();
 }
 
 class _DropDownState extends State<DropDown> {
-  String dropdownValue = 'Purple';
+  String dropdownValue = '';
+  List<String> selectionList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    dropdownValue = widget.initialSelection;
+    selectionList = widget.selectionList;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +38,11 @@ class _DropDownState extends State<DropDown> {
       ),
       onChanged: (String newValue) {
         widget.onSelected(newValue);
-        // setState(() {
-        //   dropdownValue = newValue;
-        // });
+        setState(() {
+          dropdownValue = newValue;
+        });
       },
-      items: <String>['Purple', 'Yellow', 'Green', 'Orange']
-          .map<DropdownMenuItem<String>>((value) {
+      items: selectionList.map<DropdownMenuItem<String>>((value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value,
