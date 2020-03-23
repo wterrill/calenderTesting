@@ -66,10 +66,9 @@ class _AppointmentBoxState extends State<AppointmentBox>
         },
         onTap: () {
           print("widget.text = " + widget.text);
+          Scaffold.of(context).openDrawer();
           Provider.of<CalendarData>(context, listen: false)
               .setText(widget.text);
-
-          Scaffold.of(context).openDrawer();
         },
         onDoubleTap: () {
           showDialog(

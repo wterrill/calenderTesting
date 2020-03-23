@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 // import 'package:Catalogo/src/utilities/API.dart';
 // import 'dart:convert';
 // import 'package:Catalogo/src/utilities/readWrite.dart';
@@ -14,8 +15,9 @@ import 'dart:async';
 
 class CalendarData with ChangeNotifier {
   String testing = "Data Provider works";
+  List<Map> appointmentsList = [];
 
-  var testArray = [
+  List<Map<String, Object>> testArray = [
     {
       'DOW': 'Monday',
       'date': '03-09-2020',
@@ -32,15 +34,6 @@ class CalendarData with ChangeNotifier {
         {'start': 2, 'color': 'purple', 'duration': 3, 'text': 'Place #4'},
         // {'start': 8, 'color': 'yellow', 'duration': 4, 'text': 'Place #5'},
         {'start': 15, 'color': 'green', 'duration': 3, 'text': 'Place #6'},
-      ]
-    },
-    {
-      'DOW': 'Wednesday',
-      'date': '03-11-2020',
-      'appointments': [
-        // {'start': 2, 'color': 'purple', 'duration': 3, 'text': 'Place #7'},
-        // {'start': 8, 'color': 'yellow', 'duration': 4, 'text': 'Place #8'},
-        // {'start': 15, 'color': 'green', 'duration': 3, 'text': 'Place #9'},
       ]
     },
     {
@@ -61,8 +54,6 @@ class CalendarData with ChangeNotifier {
         {'start': 15, 'color': 'green', 'duration': 3, 'text': 'Place #15'},
       ]
     },
-    {'DOW': 'Saturday', 'date': '03-14-2020', 'appointments': []},
-    {'DOW': 'Sunday', 'date': '03-15-2020', 'appointments': []},
     {
       'DOW': 'Monday',
       'date': '03-16-2020',
@@ -79,15 +70,6 @@ class CalendarData with ChangeNotifier {
         {'start': 2, 'color': 'purple', 'duration': 3, 'text': 'Place #4'},
         // {'start': 8, 'color': 'yellow', 'duration': 4, 'text': 'Place #5'},
         {'start': 15, 'color': 'green', 'duration': 3, 'text': 'Place #6'},
-      ]
-    },
-    {
-      'DOW': 'Wednesday',
-      'date': '03-18-2020',
-      'appointments': [
-        // {'start': 2, 'color': 'purple', 'duration': 3, 'text': 'Place #7'},
-        // {'start': 8, 'color': 'yellow', 'duration': 4, 'text': 'Place #8'},
-        // {'start': 15, 'color': 'green', 'duration': 3, 'text': 'Place #9'},
       ]
     },
     {
@@ -108,8 +90,6 @@ class CalendarData with ChangeNotifier {
         {'start': 15, 'color': 'green', 'duration': 3, 'text': 'Place #15'},
       ]
     },
-    {'DOW': 'Saturday', 'date': '03-21-2020', 'appointments': []},
-    {'DOW': 'Sunday', 'date': '03-22-2020', 'appointments': []},
   ];
 
   CalendarData() {
@@ -119,16 +99,14 @@ class CalendarData with ChangeNotifier {
   initializeApp() {
     print("initialized CalendarData Provider");
     testing = "";
+    createCalendarFromAppointments();
+    notifyListeners();
   }
 
   void setText(String text) {
     testing = text;
     notifyListeners();
   }
-
-  // void makeAppointment({String date, Map apptData }){
-
-  // }
 
   void makeAppointmentCheat(
       {String date, String time, String duration, String name, String color}) {
@@ -169,5 +147,39 @@ class CalendarData with ChangeNotifier {
 
   int convertDuration(String duration) {
     return (double.parse(duration) * 2).round();
+  }
+
+  createCalendarFromAppointments() {
+    DateTime now = DateTime.now();
+    DateTime start = now.add(Duration(days: -30));
+    DateTime end = now.add(Duration(days: 31));
+    Duration dayDifference = end.difference(start);
+
+    List<DateTime> datetimes = List.generate(
+        dayDifference.inDays, (index) => start.add(Duration(days: index)));
+    datetimes.forEach((element) {
+      String dayName = DateFormat('EEEEE').format(element);
+      String date = DateFormat('MM-dd-yyyy').format(element);
+      // https://pub.dev/documentation/intl/latest/intl/DateFormat-class.html
+
+      Map<String, Object> dayObj = {
+        'DOW': dayName,
+        'date': date,
+        'appointments': []
+      };
+      appointmentsList.add(dayObj);
+    });
+    print(appointmentsList);
+
+    testArray.forEach((element) {
+      int index = appointmentsList
+          .indexWhere((appointment) => appointment['date'] == element['date']);
+      appointmentsList.removeAt(index);
+      appointmentsList.insert(index, element);
+    });
+    print("------------------------");
+    appointmentsList.forEach((element) {
+      print(element['date']);
+    });
   }
 }
