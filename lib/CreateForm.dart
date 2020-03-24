@@ -99,8 +99,11 @@ class _CreateFormState extends State<CreateForm> {
                     .makeAppointmentCheat(
                         date: widget.day.split("\n")[1],
                         time: widget.times,
-                        duration: selectedDuration,
-                        name: _placeController.text,
+                        duration:
+                            selectedDuration != null ? selectedDuration : "1",
+                        name: _placeController.text != ""
+                            ? _placeController.text
+                            : "Unknown",
                         color: (selectedColor != null)
                             ? selectedColor.toLowerCase()
                             : "purple");

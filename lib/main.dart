@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    var testArray = Provider.of<CalendarData>(context).appointmentsList;
+    var testArray = Provider.of<CalendarData>(context).testArray;
 // json:
 //     title:
 //         appointments:
@@ -113,76 +113,76 @@ class _MyHomePageState extends State<MyHomePage> {
     String clickedValue =
         Provider.of<CalendarData>(context, listen: true).testing;
     return Scaffold(
-        key: _drawerKey,
-        // drawer: Drawer(
-        //   child: ListView(
-        //     padding: EdgeInsets.zero,
-        //     children: <Widget>[
-        //       DrawerHeader(
-        //         child: Text('Drawer Header'),
-        //         decoration: BoxDecoration(
-        //           color: Colors.blue,
-        //         ),
-        //       ),
-        //       ListTile(
-        //         title: Text('Item 1'),
-        //         onTap: () {},
-        //       ),
-        //       ListTile(
-        //         title: Text(clickedValue),
-        //         onTap: () {
-        //           Provider.of<CalendarData>(context, listen: false).setText(
-        //               "Clicked inside drawer that's being displayed for $clickedValue");
-        //         },
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
+      key: _drawerKey,
+      // drawer: Drawer(
+      //   child: ListView(
+      //     padding: EdgeInsets.zero,
+      //     children: <Widget>[
+      //       DrawerHeader(
+      //         child: Text('Drawer Header'),
+      //         decoration: BoxDecoration(
+      //           color: Colors.blue,
+      //         ),
+      //       ),
+      //       ListTile(
+      //         title: Text('Item 1'),
+      //         onTap: () {},
+      //       ),
+      //       ListTile(
+      //         title: Text(clickedValue),
+      //         onTap: () {
+      //           Provider.of<CalendarData>(context, listen: false).setText(
+      //               "Clicked inside drawer that's being displayed for $clickedValue");
+      //         },
+      //       ),
+      //     ],
+      //   ),
+      // ),
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
 
-        // ListView.builder(
-        //           scrollDirection: Axis.vertical,
-        //           itemCount: childrenAdded.length,
-        //           itemBuilder: (BuildContext context, int index) {
-        //             return childrenAdded[index];
-        //           })
+      // ListView.builder(
+      //           scrollDirection: Axis.vertical,
+      //           itemCount: childrenAdded.length,
+      //           itemBuilder: (BuildContext context, int index) {
+      //             return childrenAdded[index];
+      //           })
 
-        body: Container(
-          height: 1000,
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: testArray.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return
-                      // Container(width: 230, child: TestTimeTable()),
-                      createAppointmentFromArray(testArray[index]);
+      // body: Container(
+      //   height: 1000,
+      //   child: ListView(
+      //     shrinkWrap: true,
+      //     children: [
+      //       ListView.builder(
+      //         scrollDirection: Axis.horizontal,
+      //         itemCount: testArray.length,
+      //         itemBuilder: (BuildContext context, int index) {
+      //           return
+      //               // Container(width: 230, child: TestTimeTable()),
+      //               createAppointmentFromArray(testArray[index]);
 
-                  //);
-                },
-              ),
-            ],
+      //           //);
+      //         },
+      //       ),
+      //     ],
+      //   ),
+      // )
+
+      body: ListView(
+        shrinkWrap: true,
+        children: [
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                Container(width: 230, child: TestTimeTable()),
+                ...createAppointmentsFromArray(testArray),
+              ],
+            ),
           ),
-        )
-
-        // body: ListView(
-        //   shrinkWrap: true,
-        //   children: [
-        //     SingleChildScrollView(
-        //       scrollDirection: Axis.horizontal,
-        //       child: Row(
-        //         children: [
-        //           Container(width: 230, child: TestTimeTable()),
-        //           ...createAppointmentsFromArray(testArray),
-        //         ],
-        //       ),
-        //     ),
-        //   ],
-        // ),
-        );
+        ],
+      ),
+    );
   }
 }
